@@ -1,2 +1,9 @@
 # JavaJSP-Aprendizado
-Sistema simples para aprendizado, com logins, upload de imagens e download.
+Sistema simples para aprendizado em JSP. Com logins, upload de imagens e download.
+
+
+Ferramentas utilizadas para aprendizado.
+HTML (Provisóriamente)
+Java EE: JSP e Servlets
+Upload com JavaScript(Jquery) e Ajax
+Conexão com JDBC
