@@ -3,7 +3,7 @@ Sistema simples para aprendizado em JSP. Com logins, upload de imagens e downloa
 
 
 Ferramentas utilizadas para aprendizado.
-HTML (Provisóriamente)
+Na Apresentação somente HTML *(Provisóriamente)*
 Java EE: JSP e Servlets
 Upload com JavaScript(Jquery) e Ajax
 Conexão com JDBC
