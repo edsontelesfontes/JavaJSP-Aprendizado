@@ -24,7 +24,7 @@ var reader = new FileReader();
 	////-----Upload Ajax
 		$.ajax({
 		method : "POST",
-		url : "fileUpload",
+		url : "ImagemUpload",
 		data : {fileUpload : reader.result}
 		
 		}).done(function(response){

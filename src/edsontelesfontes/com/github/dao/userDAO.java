@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import edsontelesfontes.com.github.beans.userBeans;
+import edsontelesfontes.com.github.beans.User;
 
-public class userDAO extends abstractDAO {
+public class UserDAO extends AbstractDAO {
 
 	//BLOCO DE CRIAÇÃO DE UM NOVO USUÁRIO
-	public void newUser(userBeans userBeans) {
+	public void newUser(User User) {
 		Connection doConnection = null;
 		PreparedStatement doStatement = null;
 		
@@ -18,14 +18,19 @@ public class userDAO extends abstractDAO {
 			doConnection = getConnection();
 			doStatement = doConnection.prepareStatement("INSERT INTO user (username, userlogin, password) VALUES (?,?,?)");
 			
-			doStatement.setString(1, userBeans.getuserName());
-			doStatement.setString(2, userBeans.getuserLogin());
-			doStatement.setString(3, userBeans.getuserPassword());
+			doStatement.setString(1, User.getuserName());
+			doStatement.setString(2, User.getuserLogin());
+			doStatement.setString(3, User.getuserPassword());
 			doStatement.executeUpdate();
 			
 		} catch (SQLException e) {
+			try {
+				doConnection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.out.println("Falha na realização da query");
-			e.printStackTrace();
 		} finally {
 			closeResources(doConnection, doStatement, null);
 		}
@@ -33,13 +38,13 @@ public class userDAO extends abstractDAO {
 	}
 	
 	// VALIDAÇÃO DE LOGIN
-	public boolean validLogin (userBeans userBeans) throws Exception {
+	public boolean validLogin (String UserName, String Password) throws Exception {
 		Connection doConnection = null;
 		PreparedStatement doStatement = null;
 		ResultSet doResultSet = null;
 		
 		doConnection = getConnection();
-		doStatement = doConnection.prepareStatement("SELECT * FROM user where userlogin= '"+userBeans.getuserLogin()+"' AND password= '"+userBeans.getuserPassword()+"'");
+		doStatement = doConnection.prepareStatement("SELECT * FROM user where userlogin= '"+UserName+"' AND password= '"+Password+"'");
 		doResultSet = doStatement.executeQuery();
 	
 			if(doResultSet.next()) {
@@ -47,5 +52,6 @@ public class userDAO extends abstractDAO {
 			} else {
 				return false;
 			}
+			
 	}
 }

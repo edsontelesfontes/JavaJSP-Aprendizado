@@ -1,21 +1,22 @@
 package edsontelesfontes.com.github.servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class loginServlet
- */
-@WebServlet("/loginServlet")
-public class loginServlet extends HttpServlet {
+import edsontelesfontes.com.github.dao.UserDAO;
+
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public loginServlet() {
+    public LoginServlet() {
         super();
     }
 
@@ -23,12 +24,28 @@ public class loginServlet extends HttpServlet {
 	
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doGet(request, response);
+		UserDAO UserDAO = new UserDAO();
+		
+		String User = request.getParameter("login");
+		String Password = request.getParameter("senha");
+		
+		try {
+			if(UserDAO.validLogin(User, Password)) {
+				RequestDispatcher Dispatcher = request.getRequestDispatcher("acessoLiberado.jsp");
+				Dispatcher.forward(request, response);
+			}else {
+				RequestDispatcher Dispatcher = request.getRequestDispatcher("acessoRestrito.jsp");
+				Dispatcher.forward(request, response);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

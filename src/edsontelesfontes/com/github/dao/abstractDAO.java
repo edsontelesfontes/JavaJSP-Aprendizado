@@ -6,19 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class abstractDAO {
- public static final String url = "\"jdbc:mysql://localhost:3306/";
- public static final String user = "";
- public static final String password = "" ;
+public abstract class AbstractDAO {
+// public static final String url = "localhost:3306?useTimezone=true&amp;serverTimezone=UTC";
+ //public static final String user = "root";
+ //public static final String password = "" ;
  
-	protected Connection getConnection() throws SQLException {
-		
-		Connection createConnection = DriverManager.getConnection(url, user, password);
-		return createConnection;
-		
+	public Connection getConnection() throws SQLException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection createConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testes?useTimezone=true&serverTimezone=UTC",
+				      "root", "");	
+			return createConnection;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;	
+
 	}
 
-	protected void closeResources (Connection createConnection,
+	public void closeResources (Connection createConnection,
 		      Statement doPreparedStatement, ResultSet doResultSet) {
 		if(createConnection != null) {
 			try {

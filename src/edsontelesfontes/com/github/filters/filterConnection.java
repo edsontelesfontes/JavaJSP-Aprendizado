@@ -12,20 +12,19 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-import edsontelesfontes.com.github.dao.abstractDAO;
-@WebFilter(urlPatterns = {"/*"})
+import edsontelesfontes.com.github.dao.AbstractDAO;
+@WebFilter("/*")
 
-public class filterConnection extends abstractDAO implements javax.servlet.Filter{
+public class FilterConnection extends AbstractDAO implements javax.servlet.Filter{
 	private static Connection doFilterConnection;
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
 		try {
 		chain.doFilter(request, response);
 		doFilterConnection.commit();
 		}
-		catch (Exception e) {
+		catch (Exception e){
 			try {
 				doFilterConnection.rollback();
 			} catch (SQLException e1) {
@@ -36,8 +35,6 @@ public class filterConnection extends abstractDAO implements javax.servlet.Filte
 	}
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		Filter.super.init(filterConfig);
-		
 		try {
 			doFilterConnection = getConnection();
 		} catch (SQLException e) {

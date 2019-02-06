@@ -12,7 +12,7 @@
 
 <%= "Foco que o objetivo sai!" %>
 
-<form action="loginServlet" method="post">
+<form action="LoginServlet" method="post">
 Login: 
 <input type = "text" id ="login" name="login">
 <br/>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Cadastro De Usuário</h1>
-<form action="registerServlet">
+<form action="RegisterServlet" method="post">
 Nome:
 <input type= "text" id = "nome" name= "nome">
 <br/>
@@ -20,6 +20,6 @@ Senha:
 <br/>
 <input type="submit" value = "Registrar">
 </form>
-<a href="index.jsp">Voltar</a>;
+<a href="index.jsp">Voltar</a>
 </body>
 </html>
